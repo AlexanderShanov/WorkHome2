@@ -1,0 +1,81 @@
+<!DOCTYPE>
+<html>
+<head>
+    <title>Домашняя работа</title>
+    <style>
+        h1, h2, h3 {
+            color: steelblue;
+        }
+        
+        .content-block {
+            width: 800px;
+            margin-left: 20px;
+        }
+     
+        .input-form > input{
+            width: 300px;
+        }
+        
+        pre {
+            border: 1px solid steelblue;
+            width: 300px;
+            min-height: 50px;
+        }
+        
+    </style>
+    
+  
+</head>
+
+<body>
+    <h3>
+        Добавить студента
+    </h3>    
+		<table style="width: 400px; border: 3px solid #c0d2de;">       
+			<tr><td>Имя студента:</td><td align="right"><input id = "studentName" type = "text" style="text-align:left; margin: 1px; width: 200px;"></td></tr>
+			<tr><td>Дата рождения:</td><td align="right"><input id = "studentDateBorn" type = "date"  style="text-align:left; margin: 1px; width: 200px;"></td></tr>
+			<tr><td>Пол:</td><td align="right"><select id = "gender"  style="text-align:left; margin: 1px; width: 200px;"><option value="">Мужской</option><option value="">Женский</option> </select></td></tr>
+			<tr><td><button onclick = "addStudent()" style="margin: 10px;">Добавить</button></td><td></td></tr>
+		</table>
+    <h3>
+    Таблица студентов
+    </h3>
+	<table id = "studentTable" style="width: 600px; border: 3px solid #c0d2de;" border="1">       
+			<tr><td style="width: 100px;">Имя студента</td><td style="width: 100px;">Пол</td><td>Дата рождения</td><td>Возраст</td></tr>
+			<tr><td colspan = "4" style="height: 22px;"> </td></tr>
+			<tr><td colspan = "3" style="width: 100px;">Средний возраст</td><td id = "midleAge" >0</td></tr>
+	</table>
+	<script>
+	function addStudent(){
+
+        var studentName = document.getElementById("studentName");
+        var gender = document.getElementById("gender");
+        var studentDateBorn = document.getElementById("studentDateBorn");
+		var studentTable = document.getElementById("studentTable");
+        var midleAge = document.getElementById("midleAge");
+		
+        var row = studentTable.insertRow(studentTable.rows.length - 2);
+        var cell0 = row.insertCell(0);
+        cell0.innerHTML = "<td>" + studentName.value + "</td>" ;
+        var cell1 = row.insertCell(1);
+        var text= gender.options[gender.selectedIndex].text;
+        cell1.innerHTML ="<td>" + text +"</td>" ;
+        var cell2 = row.insertCell(2);
+        cell2.innerHTML ="<td>" +  studentDateBorn.value +"</td>" ;
+        var cell3 = row.insertCell(3);
+        cell3.innerHTML = "<td>" + Math.floor( (new Date() - new Date(studentDateBorn.value)) / 1000 / 60 / 60 / 24 / 365) +"</td>";   
+
+        var k = 0;        
+        for ( var i = 1; i < studentTable.rows.length - 2; i++ ) { 
+            k += parseInt(studentTable.rows[i].cells[3].innerHTML);            
+        } 
+
+        k /= studentTable.rows.length - 3;
+        //alert(k);
+        midleAge.innerHTML = "<td>" +  k +"</td>" ;
+
+    }
+	
+	</script>		
+</body>
+</html>
